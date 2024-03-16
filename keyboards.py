@@ -1,17 +1,9 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-from test import Database
 
 
 phone_keyword = ReplyKeyboardMarkup([
       [KeyboardButton("Telefonlar"), KeyboardButton("Noutbuklar")]
     ], resize_keyboard=True)
-
-# 1-usul databasedan o'qib olish
-# phone_details = ReplyKeyboardMarkup(resize_keyboard=True)
-# query = "SELECT * FROM phone"
-# for i in Database.connect(query, "select"):
-#     phone_details.add(KeyboardButton(i[1]))
-# phone_details.add(KeyboardButton("Back 🚪🏃"))
 
 # 2-usul shunchaki yozish
 phone_details = ReplyKeyboardMarkup([

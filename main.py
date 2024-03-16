@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
 from test import Database
 from keyboards import phone_keyword, phone_details, noutbook_details, hp_details, acer_details, lenovo_details, thunderobot_details, redmi_details, samsung_details, iphone_details, honor_details
+from inline_keywords.post import inline_keyword_1
+import time
 
 load_dotenv()
 
@@ -304,7 +306,7 @@ async def select(message: types.Message):
 async def select(message: types.Message):
     await message.answer(f"""
     Noutbuklardan birini tanlang 💻
-    """, reply_markup=noutbook_details)
+    """, reply_markup=inline_keyword_1)
 
 @dp.message_handler(lambda message: message.text == "HP")
 async def select(message: types.Message):
@@ -505,6 +507,41 @@ async def select(message: types.Message):
 """, reply_markup=thunderobot_details)
 
 
+
+
+
+@dp.callback_query_handler(lambda call: call.data == "option1")
+async def agree_ref_start(query: types.CallbackQuery):
+    if query.data == "option1":
+        await query.answer("I am callback")
+
+
+
+# image
+@dp.message_handler(commands=['image'])
+async def send_image(message: types.Message):
+    photo_url_1 = 'https://i.pinimg.com/736x/2d/8e/cf/2d8ecf652ef6b55028b99c72f1e0548a.jpg'
+    photo_url_2 = 'https://i.pinimg.com/564x/c7/e2/b8/c7e2b8576bedb85c6b5b582a3c542b70.jpg'
+    photo_url_3 = 'https://i.pinimg.com/736x/8e/63/31/8e6331f41671b918095fef516546f4bb.jpg'
+
+    data = [photo_url_1, photo_url_2, photo_url_3]
+    for i in data:
+        caption = f"""Sizning rasmingiz"""
+        time.sleep(2)
+        await bot.send_photo(message.chat.id, photo=i, caption=caption)
+
+
+
+# admin
+@dp.message_handler(commands=['admin'])
+async def admin_command(message: types.Message):
+    if message.from_user.id in [225534380]:
+        await message.reply("Salom admin")
+        await message.reply(API_TOKEN)
+        await message.answer("""Tepadagi 👆 bot tokeni""")
+
+    else:
+        await message.reply("Bunday buyruq turi mavjud emas")
 
 
 if __name__ == '__main__':
